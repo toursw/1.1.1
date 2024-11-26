@@ -1,0 +1,44 @@
+import pygame
+import random
+
+# 初始化 Pygame
+pygame.init()
+
+# 设置窗口大小
+WIDTH, HEIGHT = 400, 400
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("消消乐")
+
+# 定义颜色
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+COLORS = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0), (255, 165, 0)]
+
+# 网格设置
+GRID_SIZE = 8
+TILE_SIZE = WIDTH // GRID_SIZE
+
+# 创建网格
+grid = [[random.choice(COLORS) for _ in range(GRID_SIZE)] for _ in range(GRID_SIZE)]
+
+def draw_grid():
+    for y in range(GRID_SIZE):
+        for x in range(GRID_SIZE):
+            pygame.draw.rect(screen, grid[y][x], (x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE))
+            pygame.draw.rect(screen, BLACK, (x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE), 1)
+
+def main():
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+        screen.fill(WHITE)
+        draw_grid()
+        pygame.display.flip()
+
+    pygame.quit()
+
+if __name__ == "__main__":
+    main()
